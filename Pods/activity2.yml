@@ -1,0 +1,15 @@
+##Create a Pod with two containers
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: activity2
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27
+    - name: linux
+      image: alpine
+      args:
+        - sleep
+        - 10s
