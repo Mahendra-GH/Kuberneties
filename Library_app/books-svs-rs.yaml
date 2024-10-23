@@ -1,5 +1,5 @@
-# To run users servics:
-# image: shaikkhajaibrahim/libuserssvc:1.0
+# To run books servics:
+# image: shaikkhajaibrahim/libbookssvc:1.0
 # environmental variables:
 # DATABASE_URL: “postgresql://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<name or ip of the container>:5432/“
 # SECRET_KEY: ‘YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k’
@@ -7,21 +7,21 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: users-service-rs
+  name: books-service-rs
 spec:
   minReadySeconds: 5
   replicas: 1
   selector:
     matchLabels:
-      app: users-service
+      app: books-service
   template:
     metadata:
       labels:
-        app: users-service
+        app: books-service
     spec:
       containers:
-        - name: users-service-container
-          image: shaikkhajaibrahim/libuserssvc:1.0
+        - name: books-service-container
+          image: shaikkhajaibrahim/libbookssvc:1.0
           resources:
             requests:
               memory: 24M
@@ -33,7 +33,7 @@ spec:
             - name: SECRET_KEY
               value: 'YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k'
             - name: DATABASE_URL
-              value: "postgresql://user:password@users-db-svc:5432/usersdb"
+              value: "postgresql://user:password@books-db-svc:5432/booksdb"
           ports:
             - containerPort: 8000
 
@@ -44,11 +44,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: users-svc
+  name: books-svc
 spec:
   type: ClusterIP
   selector:
-    app: users-service
+    app: books-service
   ports:
   - port: 8000
     targetPort: 8000
