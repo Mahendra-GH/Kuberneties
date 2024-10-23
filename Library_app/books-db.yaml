@@ -1,0 +1,67 @@
+#To run books database
+  #image: postgres:15-alpine
+#environmental variables:
+  #POSTGRES_USER: user
+  #POSTGRES_PASSWORD: password
+  #POSTGRES_DB: booksdb
+
+# Create Replicaset
+---
+apiVersion: apps/v1
+Kind: ReplicaSet
+metadate:
+  name: books-db-rs
+  labels: books-DB
+spec:
+  minReadySeconds: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      Database: books-DB
+  template:
+    metadata:
+      name: books-db-pod
+      labels: 
+       Database: books-DB
+    spec:
+      containers:
+        - name: books-db-container
+          image: postgres:15-alpine
+          env:
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_DB
+              value: booksdb
+          resources:
+            requests:
+              memory: 24M
+              cpu: 100m
+            limits:
+              memory: 128M
+              cpu: 500m
+          ports:
+            - containerPort: 5432
+---
+
+# Create Service 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: books-db-svc
+spec:
+  type: ClusterIP
+  selector:
+    Database: books-DB
+  ports:
+    - port: 5432
+      targetPort: 5432
+    
+
+
+  
+
+
+
