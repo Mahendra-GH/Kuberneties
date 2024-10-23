@@ -1,12 +1,4 @@
-#To run users database
-  #image: postgres:15-alpine
-#environmental variables:
-  #POSTGRES_USER: user
-  #POSTGRES_PASSWORD: password
-  #POSTGRES_DB: usersdb
 
-# Create Replicaset
----
 apiVersion: apps/v1
 kind: ReplicaSet
 metadate:
