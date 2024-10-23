@@ -1,0 +1,54 @@
+# To run users servics:
+# image: shaikkhajaibrahim/libuserssvc:1.0
+# environmental variables:
+# DATABASE_URL: “postgresql://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<name or ip of the container>:5432/“
+# SECRET_KEY: ‘YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k’
+# port: 8000
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: users-service-rs
+spec:
+  minReadySeconds: 5
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-service
+  template:
+    metadata:
+      labels:
+        app: users-service
+    spec:
+      containers:
+        - name: users-service-container
+          image: shaikkhajaibrahim/libuserssvc:1.0
+          resources:
+            requests:
+              memory: 24M
+              cpu: 100m
+            limits:
+              memory: 128M
+              cpu: 500m
+          env:
+            - name: SECRET_KEY
+              value: 'YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k'
+            - name: DATABASE_URL
+              value: "postgresql://user:password@users-db:5432/usersdb"
+          ports:
+            - containerPort: 8000
+
+---
+
+## Create Service Type ClusterIP
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: users-service
+  ports:
+  - port: 8000
+    targetPort: 8000
