@@ -1,0 +1,58 @@
+# To run library webstore
+   # image: shaikkhajaibrahim/libwebstore:1.0
+# environmental variables
+   # REACT_APP_BACKEND_API_URL: http://:8000/api/v1
+   # REACT_APP_BOOKS_API_URL: http://:8000/api/v1/books
+   # REACT_APP_USERS_API_URL: http://:8000/api/v1/users
+   #port: 3000
+
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webstore-rs
+spec:
+  minReadySeconds: 3
+  replicas: 1
+  selector:
+    matchLabels:
+     app: web
+    template:
+      metadata:
+        name: webstore-pod
+        labels:
+          app: web
+      spec:
+        containers:
+          - name: webstore-container
+            image: shaikkhajaibrahim/libwebstore:1.0
+            env:
+              - name: REACT_APP_BACKEND_API_URL
+                value:  http://users-svc-svc:8000/api/v1
+              - name: REACT_APP_BOOKS_API_URL
+                value: http://books-svc-svc:8000/api/v1/books
+              - name: REACT_APP_USERS_API_URL
+                value: http://users-svc-svc:8000/api/v1/users
+
+                ports:
+                  - containerPort: 3000
+                    protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadate:
+  name: webstore-svc
+ 
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 3000
+
+
+
+
+
