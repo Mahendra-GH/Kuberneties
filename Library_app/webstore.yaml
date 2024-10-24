@@ -35,7 +35,7 @@ spec:
               memory: 128M
               cpu: 500m
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           env:
             - name: REACT_APP_BACKEND_API_URL
               value: http://users-svc-svc:8000/api/v1
@@ -54,7 +54,7 @@ spec:
     app: webstore
   ports:
   - port: 80
-    targetPort: 3000
+    targetPort: 8000
 
 
 
