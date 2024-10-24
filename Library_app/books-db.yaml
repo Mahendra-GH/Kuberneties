@@ -11,22 +11,22 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: books-db-rs
-  
+  labels:
+    app: books-db
 spec:
-  minReadySeconds: 2
+  minReadySeconds: 5
   replicas: 1
   selector:
     matchLabels:
-      Database: books-DB
+      db: books
   template:
     metadata:
-      name: books-db-pod
-      labels: 
-       Database: books-DB
+      labels:
+        db: books
     spec:
       containers:
-        - name: books-db-container
-          image: postgres:15-alpine
+        - image: postgres:15-alpine
+          name: booksdb
           env:
             - name: POSTGRES_USER
               value: user
@@ -44,24 +44,15 @@ spec:
           ports:
             - containerPort: 5432
 ---
-
-# Create Service 
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: books-db-svc
+  name: books-db
 spec:
   type: ClusterIP
   selector:
-    Database: books-DB
+    db: books
   ports:
     - port: 5432
       targetPort: 5432
-    
-
-
-  
-
-
 

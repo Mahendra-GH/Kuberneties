@@ -11,22 +11,22 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: users-db-rs
-  
+  labels:
+    app: users-db
 spec:
-  minReadySeconds: 2
+  minReadySeconds: 5
   replicas: 1
   selector:
     matchLabels:
-      Database: users-DB
+      db: users
   template:
     metadata:
-      name: users-db-pod
-      labels: 
-       Database: users-DB
+      labels:
+        db: users
     spec:
       containers:
-        - name: users-db-container
-          image: postgres:15-alpine
+        - image: postgres:15-alpine
+          name: usersdb
           env:
             - name: POSTGRES_USER
               value: user
@@ -44,17 +44,14 @@ spec:
           ports:
             - containerPort: 5432
 ---
-
-# Create Service 
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: users-db-svc
+  name: users-db
 spec:
   type: ClusterIP
   selector:
-    Database: users-DB
+    db: users
   ports:
     - port: 5432
       targetPort: 5432
