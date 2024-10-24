@@ -17,16 +17,16 @@ spec:
   selector:
     matchLabels:
      app: web
-    template:
-      metadata:
-        name: webstore-pod
-        labels:
-          app: web
-      spec:
-        containers:
-          - name: webstore-container
-            image: shaikkhajaibrahim/libwebstore:1.0
-            env:
+  template:
+    metadata:
+      name: webstore-pod
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: webstore-container
+          image: shaikkhajaibrahim/libwebstore:1.0
+          env:
               - name: REACT_APP_BACKEND_API_URL
                 value:  http://users-svc-svc:8000/api/v1
               - name: REACT_APP_BOOKS_API_URL
