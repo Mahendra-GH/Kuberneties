@@ -11,7 +11,7 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: books-db-rs
-  labels: books-DB
+  
 spec:
   minReadySeconds: 2
   replicas: 1
