@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Deployment
+  name: deployment
   annotations:
         kubernetes.io/change-cause: "version v1.0"
 spec:
@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: container
-          image: shaikkhajaibrahim/dmtest
+          image: shaikkhajaibrahim/dmtest:1.0
           ports:
             - containerPort: 80
           resources:
@@ -33,9 +33,9 @@ spec:
               cpu: 200m
             limits:
               memory: 128M
-              cpu:500m
-
+              cpu: 500m
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
