@@ -43,13 +43,17 @@ spec:
               cpu: 500m
           ports:
             - containerPort: 3000
-          env:
-            - name: REACT_APP_BACKEND_API_URL
-              value: http://users-svc-svc:8000/api/v1
-            - name: REACT_APP_BOOKS_API_URL
-              value: http://books-svc-svc:8000/api/v1/books
-            - name: REACT_APP_USERS_API_URL
-              value: http://users-svc-svc:8000/api/v1/users
+          # env:
+          #   - name: REACT_APP_BACKEND_API_URL
+          #     value: http://users-svc-svc:8000/api/v1
+          #   - name: REACT_APP_BOOKS_API_URL
+          #     value: http://books-svc-svc:8000/api/v1/books
+          #   - name: REACT_APP_USERS_API_URL
+          #     value: http://users-svc-svc:8000/api/v1/users
+          envFrom:
+            -  configMapRef:
+                 name: webstore-config
+
 ---
 apiVersion: v1
 kind: Service
