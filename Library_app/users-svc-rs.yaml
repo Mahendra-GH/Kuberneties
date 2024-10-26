@@ -5,15 +5,22 @@
 # SECRET_KEY: ‘YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k’
 # port: 8000
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
   name: users-service-rs
+  annotations:
+    kubernetes.io/change-cause: "updated image v1.0"
 spec:
   minReadySeconds: 5
   replicas: 1
   selector:
     matchLabels:
       app: users-service
+    strategy:
+      type: RollingUpdate
+      rollingUpdate: 
+        maxSurge:
+        maxUnavailable:
   template:
     metadata:
       labels:
