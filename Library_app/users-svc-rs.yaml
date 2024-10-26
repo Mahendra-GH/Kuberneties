@@ -16,11 +16,11 @@ spec:
   selector:
     matchLabels:
       app: users-service
-    strategy:
-      type: RollingUpdate
-      rollingUpdate: 
-        maxSurge:
-        maxUnavailable:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+       maxSurge:
+       maxUnavailable:
   template:
     metadata:
       labels:
