@@ -42,8 +42,11 @@ spec:
           #   - name: DATABASE_URL
           #     value: "postgresql://user:password@users-db:5432/usersdb"
           envFrom:
-            - configMapRef:
-                name: users-service-rs-config
+            # - configMapRef:
+            #     name: users-service-rs-config
+
+            - secretRef:
+                name: users-service-rs-secrets
           ports:
             - containerPort: 8000
 

@@ -42,8 +42,10 @@ spec:
           #   - name: DATABASE_URL
           #     value: "postgresql://user:password@books-db:5432/booksdb"
           envFrom:
-            - configMapRef:
-                name: books-service-rs-config
+            # - configMapRef:
+            #     name: books-service-rs-config
+              - secretRef:
+                  name: books-db-rs-secrets
           ports:
             - containerPort: 8000
 

@@ -35,8 +35,12 @@ spec:
           #   - name: POSTGRES_DB
           #     value: booksdb
           envFrom: 
-            - configMapRef:
-                name: books-db-rs-config
+            # - configMapRef:
+            #     name: books-db-rs-config
+
+            - secretRef:
+                name: books-db-rs-secrets
+
           resources:
             requests:
               memory: 24M

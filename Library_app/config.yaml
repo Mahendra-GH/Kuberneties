@@ -25,7 +25,7 @@ metadata:
   name: users-service-rs-config
 data:
   SECRET_KEY: "YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k"
-  DATABASE_URL: "postgresql://user:password@users-db:5432/usersdb
+  DATABASE_URL: "postgresql://user:password@users-db:5432/usersdb"
   
 ---
 apiVersion: v1
@@ -34,7 +34,7 @@ metadata:
   name: books-service-rs-config
 data:
   SECRET_KEY: "YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k"
-  DATABASE_URL: "postgresql://user:password@books-db:5432/booksdb
+  DATABASE_URL: "postgresql://user:password@books-db:5432/booksdb"
 
 ---
 apiVersion: v1

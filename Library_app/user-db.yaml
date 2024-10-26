@@ -35,8 +35,10 @@ spec:
           #   - name: POSTGRES_DB
           #     value: usersdb
           envFrom:
-            - configMapRef:
-                name: users-db-rs-config
+            # - configMapRef:
+            #     name: users-db-rs-config
+            - secretRef:
+                name: users-db-rs-secrets
             
           resources:
             requests:
