@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-ds
+spec:
+  minReadySeconds: 3
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      name: fluentd-pod
+      labels:
+        app: fluentd
+    spec:
+      containers:
+        - name: agent
+          image: fluent/fluentd:edge-debian
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 200m
+            limits:
+              memory: 128Mi
+              cpu: 300m
+          ports:
+            - containerPort: 9880
+              name: fluentd
