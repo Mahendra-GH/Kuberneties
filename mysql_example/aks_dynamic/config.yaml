@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: configMap
+metadata: 
+  name: sql-pod-config
+data:
+   MYSQL_DATABASE: tiger
+   MYSQL_ROOT_PASSWORD: scoot
+   MYSQL_USER: mahendra
+   MYSQL_PASSWORD: Mahe@123
+    

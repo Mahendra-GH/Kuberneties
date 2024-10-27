@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:sql-pod
+spec:
+  containers:
+    - name: mysql-con
+      image: mysql
+      ports:
+        - containerPort: 3306
+      envFrom:
+        - configMapRef:
+            name: sql-pod-config
+      volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysqldb
+  volumes:
+    - name: mysqldb
+      persistentVolumeClaim:
+        claimName: mysql-pvc
