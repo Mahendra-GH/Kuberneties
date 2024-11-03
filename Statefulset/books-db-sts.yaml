@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: books-db-sts
+  labels:
+    app: books-db
+spec:
+  minReadySeconds: 5
+  replicas: 2
+  serviceName: books-db-svc
+  selector:
+    matchLabels:
+      db: books
+  template:
+    metadata:
+      labels:
+        db: books
+    spec:
+      automountServiceAccountToken: "false"
+      containers:
+        - image: postgres:15-alpine
+          name: booksdb
+          # env:
+          #   - name: POSTGRES_USER
+          #     value: user
+          #   - name: POSTGRES_PASSWORD
+          #     value: password
+          #   - name: POSTGRES_DB
+          #     value: booksdb
+          envFrom:
+            # - configMapRef:
+            #     name: books-db-rs-config
+            - secretRef:
+                name: books-db-rs-secrets
+            
+          resources:
+            requests:
+              memory: 64M
+              cpu: 200m
+            limits:
+              memory: 128M
+              cpu: 500m
+          ports:
+            - containerPort: 5432
+          volumeMounts: 
+            - name: books-pvc
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: books-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: managed
+  resources:
+    resources:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: books-db-svc
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    db: books
+  ports:
+    - port: 5432
+      targetPort: 5432
+      
+
