@@ -1,0 +1,4 @@
+image: nginx:1.27
+args:
+  - sleep
+  - 10s
