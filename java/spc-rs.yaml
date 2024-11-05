@@ -23,7 +23,10 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
-      nodeName: "aks-nodepool1-32331479-vmss000001"
-      nodeSelector:
-        type: aks-nodepool1-32331479-vmss000001
-        env: app
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+      
+            - nodeSelector:
+                matchFields:
+                  - env: app
