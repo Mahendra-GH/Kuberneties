@@ -31,5 +31,5 @@ spec:
                   - key: "aks-nodepool1-32331479-vmss000001"
                     operator: In
                     values:
-                      - default
+                      - env: app
             
