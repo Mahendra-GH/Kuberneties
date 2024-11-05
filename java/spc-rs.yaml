@@ -28,7 +28,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: nodeName: "aks-nodepool1-32331479-vmss000001"
+                  - key: "aks-nodepool1-32331479-vmss000001"
                     operator: In
                     values:
                       - default
