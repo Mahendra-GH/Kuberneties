@@ -26,5 +26,4 @@ spec:
       nodeName: "aks-nodepool1-32331479-vmss000001"
       nodeSelector:
         type: aks-nodepool1-32331479-vmss000001
-        labels:
-          env: app
+        env: app
