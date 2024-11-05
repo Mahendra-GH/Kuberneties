@@ -24,9 +24,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
       affinity:
-        podAffinity:
+        nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-      
             - nodeSelector:
                 matchFields:
                   - env: app
